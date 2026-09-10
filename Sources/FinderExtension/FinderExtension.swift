@@ -28,18 +28,19 @@ final class FinderExtension: FIFinderSync {
             let item = NSMenuItem(title: kind.title, action: #selector(createFile(_:)), keyEquivalent: "")
             item.target = self
             // Finder copies menu items. Use tags, not representedObject.
-            item.tag = index + (menuKind == .contextualMenuForItems ? 2 : 0)
+            item.tag = index + (menuKind == .contextualMenuForItems ? FileKind.allCases.count : 0)
             menu.addItem(item)
         }
         return menu
     }
 
     @objc private func createFile(_ sender: NSMenuItem) {
-        guard (0..<4).contains(sender.tag) else { return }
+        let kinds = FileKind.allCases
+        guard (0..<kinds.count * 2).contains(sender.tag) else { return }
         let controller = FIFinderSyncController.default()
-        let target = sender.tag >= 2 ? controller.selectedItemURLs()?.first : controller.targetedURL()
+        let target = sender.tag >= kinds.count ? controller.selectedItemURLs()?.first : controller.targetedURL()
         guard let target, target.isFileURL else { return }
-        let url = CreateRequest(target: target, kind: FileKind.allCases[sender.tag % 2]).url
+        let url = CreateRequest(target: target, kind: kinds[sender.tag % kinds.count]).url
         let app = Bundle.main.bundleURL.deletingLastPathComponent()
             .deletingLastPathComponent().deletingLastPathComponent()
         let configuration = NSWorkspace.OpenConfiguration()

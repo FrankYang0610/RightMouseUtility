@@ -1,12 +1,13 @@
 # RightMouseUtility
 
-Create empty TXT and Markdown files from Finder's right-click menu.
+Create TXT, Markdown, and Word files from Finder's right-click menu.
 
 - Right-click a folder background to create a file there.
 - Right-click a folder to create a file inside it.
 - Right-click a file to create a file beside it.
-- Names start at `Untitled.txt` or `Untitled.md`. Existing names get a number.
+- Names start at `Untitled.txt`, `Untitled.md`, or `Untitled.docx`. Existing names get a number.
 - New files are selected in Finder. Existing files are never overwritten.
+- TXT and Markdown files start empty. Word documents copy the bundled template.
 
 ## Build
 
@@ -49,15 +50,19 @@ The app writes the file with the user's normal permissions. It does not require
 Full Disk Access, Accessibility access, a server, or a background login item.
 File creation uses an exclusive write to prevent overwrites, including name races.
 
+`Resources/Doc.docx` is the supplied Word template. Each new document is an exact
+copy of its contents. Replace this file and rebuild to change the template.
+Word is not required to create a document.
+
 `Sources/Core` contains request parsing and file creation. `Sources/App` contains
-the native AppKit window. `Sources/FinderExtension` contains the two menu items.
+the native AppKit window. `Sources/FinderExtension` contains the three menu items.
 
 ## Validation
 
 Tested on macOS 26.6.2 with Apple silicon.
 
-- Seven unit tests pass.
+- Ten unit tests pass, including exact template copies and overwrite protection.
 - The app and extension build with warnings treated as errors.
 - The app and extension pass code signature verification.
-- Finder creates TXT and Markdown files, including when the app is closed.
+- Finder creates TXT, Markdown, and Word files, including when the app is closed.
 - Existing names get a number. Finder selects the new file.

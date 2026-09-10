@@ -1,9 +1,15 @@
 import Foundation
 
 enum FileKind: String, CaseIterable {
-    case txt, md
+    case txt, md, docx
 
-    var title: String { self == .txt ? "New TXT File" : "New Markdown File" }
+    var title: String {
+        switch self {
+        case .txt: return "New TXT File"
+        case .md: return "New Markdown File"
+        case .docx: return "New Word Document"
+        }
+    }
 }
 
 struct CreateRequest {

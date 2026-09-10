@@ -60,7 +60,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     private func makeWindow() -> NSWindow {
-        let window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 460, height: 290),
+        let window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 560, height: 290),
                               styleMask: [.titled, .closable, .miniaturizable], backing: .buffered, defer: false)
         window.title = "RightMouseUtility"
         window.isReleasedWhenClosed = false
@@ -69,7 +69,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         let title = NSTextField(labelWithString: "New files. One right-click.")
         title.font = .systemFont(ofSize: 23, weight: .semibold)
         let detail = NSTextField(wrappingLabelWithString:
-            "Create empty TXT and Markdown files in Finder. Existing files stay safe.")
+            "Create TXT, Markdown, and Word files in Finder. Existing files stay safe.")
         detail.textColor = .secondaryLabelColor
         status.font = .systemFont(ofSize: 12)
         let enable = NSButton(title: "Finder Extension Settings", target: self, action: #selector(enableExtension))
@@ -117,7 +117,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     private func create(_ request: CreateRequest) {
         do {
-            let file = try FileCreator.create(request)
+            let template = Bundle.main.url(forResource: "Doc", withExtension: "docx")
+            let file = try FileCreator.create(request, template: template)
             NSWorkspace.shared.activateFileViewerSelecting([file])
         } catch {
             NSApp.activate(ignoringOtherApps: true)
