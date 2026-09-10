@@ -117,7 +117,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     private func create(_ request: CreateRequest) {
         do {
-            let template = Bundle.main.url(forResource: "Doc", withExtension: "docx")
+            let template = Bundle.main.url(forResource: "Empty-DOCX", withExtension: "docx")
             let file = try FileCreator.create(request, template: template)
             NSWorkspace.shared.activateFileViewerSelecting([file])
         } catch {

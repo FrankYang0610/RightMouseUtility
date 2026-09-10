@@ -53,7 +53,7 @@ final class CoreTests: XCTestCase {
     func testCopiesWordTemplateWithoutOverwriting() throws {
         let template = URL(fileURLWithPath: #filePath).deletingLastPathComponent()
             .deletingLastPathComponent().deletingLastPathComponent()
-            .appendingPathComponent("Resources/Doc.docx")
+            .appendingPathComponent("Resources/Empty-DOCX.docx")
         let original = try Data(contentsOf: template)
         let request = CreateRequest(target: directory, kind: .docx)
         let first = try FileCreator.create(request, template: template)

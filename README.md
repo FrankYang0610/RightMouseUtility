@@ -19,8 +19,7 @@ bash scripts/build.sh
 open build/RightMouseUtility.app
 ```
 
-The app includes a Finder Sync extension. The default build uses a local ad hoc
-signature. For distribution, use a Developer ID identity and notarize the app.
+The app includes a Finder Sync extension. The default build uses a local ad hoc signature. For distribution, use a Developer ID identity and notarize the app.
 
 ```sh
 SIGNING_IDENTITY="Developer ID Application: Your Name (TEAMID)" bash scripts/build.sh
@@ -35,30 +34,19 @@ The build targets the current Mac. Set `ARCH=arm64` or `ARCH=x86_64` to change i
 3. Enable **RightMouseUtility**. On macOS 26, it appears under **File Providers**.
 4. Open a normal folder in Finder. Right-click and choose a file type.
 
-The app also has buttons to choose a folder and create a file directly.
-macOS may ask for access to protected folders. Allow access to create files there.
-Read-only folders show an error. Virtual locations, such as Recents, are not supported.
-Multiple selections do not show these menu items. App bundles are treated as files.
+The app also has buttons to choose a folder and create a file directly. macOS may ask for access to protected folders. Allow access to create files there. Read-only folders show an error. Virtual locations, such as Recents, are not supported. Multiple selections do not show these menu items. App bundles are treated as files.
 
-If the menu is missing, check the extension setting and reopen the Finder window.
-Rebuilding or moving the app may require enabling the extension again.
+If the menu is missing, check the extension setting and reopen the Finder window. Rebuilding or moving the app may require enabling the extension again.
 
 ## Design
 
-The sandboxed Finder extension sends a typed URL request to its containing app.
-The app writes the file with the user's normal permissions. It does not require
-Full Disk Access, Accessibility access, a server, or a background login item.
-File creation uses an exclusive write to prevent overwrites, including name races.
+The sandboxed Finder extension sends a typed URL request to its containing app. The app writes the file with the user's normal permissions. It does not require Full Disk Access, Accessibility access, a server, or a background login item. File creation uses an exclusive write to prevent overwrites, including name races.
 
-`Resources/Doc.docx` is the supplied Word template. Each new document is an exact
-copy of its contents. Replace this file and rebuild to change the template.
-Word is not required to create a document.
+`Resources/Empty-DOCX.docx` is the supplied Word template. Each new document is an exact copy of its contents. Replace this file and rebuild to change the template. Word is not required to create a document.
 
-`Resources/Icons` contains the menu icons from TextEdit (TXT), Markdown Preview
-(Markdown), and Microsoft Word (DOCX). The extension bundles these icons.
+`Resources/Icons` contains the menu icons from TextEdit (TXT), Markdown Preview (Markdown), and Microsoft Word (DOCX). The extension bundles these icons.
 
-`Sources/Core` contains request parsing and file creation. `Sources/App` contains
-the native AppKit window. `Sources/FinderExtension` contains the three menu items.
+`Sources/Core` contains request parsing and file creation. `Sources/App` contains the native AppKit window. `Sources/FinderExtension` contains the three menu items.
 
 ## Validation
 
