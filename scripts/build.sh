@@ -7,10 +7,12 @@ extension="$app/Contents/PlugIns/FinderExtension.appex"
 identity="${SIGNING_IDENTITY:--}"
 arch="${ARCH:-$(uname -m)}"
 sdk="$(xcrun --sdk macosx --show-sdk-path)"
-mkdir -p "$app/Contents/MacOS" "$app/Contents/Resources" "$extension/Contents/MacOS" build/ModuleCache
+mkdir -p "$app/Contents/MacOS" "$app/Contents/Resources" \
+    "$extension/Contents/MacOS" "$extension/Contents/Resources" build/ModuleCache
 cp Resources/App-Info.plist "$app/Contents/Info.plist"
 cp Resources/Extension-Info.plist "$extension/Contents/Info.plist"
 cp -X Resources/Doc.docx "$app/Contents/Resources/Doc.docx"
+cp -X Resources/Icons/*.icns "$extension/Contents/Resources/"
 
 flags=(-sdk "$sdk" -target "$arch-apple-macosx13.0" -swift-version 5 -O
        -warnings-as-errors -module-cache-path "$PWD/build/ModuleCache"

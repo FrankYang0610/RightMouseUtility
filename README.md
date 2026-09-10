@@ -54,6 +54,9 @@ File creation uses an exclusive write to prevent overwrites, including name race
 copy of its contents. Replace this file and rebuild to change the template.
 Word is not required to create a document.
 
+`Resources/Icons` contains the menu icons from TextEdit (TXT), Markdown Preview
+(Markdown), and Microsoft Word (DOCX). The extension bundles these icons.
+
 `Sources/Core` contains request parsing and file creation. `Sources/App` contains
 the native AppKit window. `Sources/FinderExtension` contains the three menu items.
 

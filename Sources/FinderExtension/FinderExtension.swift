@@ -27,6 +27,9 @@ final class FinderExtension: FIFinderSync {
         for (index, kind) in FileKind.allCases.enumerated() {
             let item = NSMenuItem(title: kind.title, action: #selector(createFile(_:)), keyEquivalent: "")
             item.target = self
+            item.image = Bundle.main.image(forResource: NSImage.Name(kind.rawValue))
+            item.image?.size = NSSize(width: 16, height: 16)
+            item.image?.isTemplate = false
             // Finder copies menu items. Use tags, not representedObject.
             item.tag = index + (menuKind == .contextualMenuForItems ? FileKind.allCases.count : 0)
             menu.addItem(item)
